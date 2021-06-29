@@ -1,0 +1,695 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+    <name>primefaces_omega</name>
+    
+    <component>
+        <component-type>org.primefaces.component.OmegaMenu</component-type>
+        <component-class>org.primefaces.omega.component.menu.OmegaMenu</component-class>
+    </component>
+    
+    <render-kit>
+        <renderer>
+            <component-family>org.primefaces.component</component-family>
+            <renderer-type>org.primefaces.component.OmegaMenuRenderer</renderer-type>
+            <renderer-class>org.primefaces.omega.component.menu.OmegaMenuRenderer</renderer-class>
+        </renderer>
+    </render-kit>
+    <!-- browse navigations -->
+    <!-- navigations from index-->
+    <navigation-rule>
+        <from-view-id>index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ParvaListView</from-outcome>
+            <to-view-id>/browse/ParvaListView.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ShlokLineFirstChar</from-outcome>
+            <to-view-id>/browse/ShlokLineFirstChar.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>WordFirstChar</from-outcome>
+            <to-view-id>/browse/WordFirstChar.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- navigations from parvalist-->
+    <navigation-rule>
+        <from-view-id>/browse/ParvaListView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>AdhyayList</from-outcome>
+            <to-view-id>/browse/AdhyayListView.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{parvaListNavigate.parvaId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+    <!-- navigations from adhyaylist-->
+    <navigation-rule>
+        <from-view-id>/browse/AdhyayListView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ParvaList</from-outcome>
+            <to-view-id>/browse/ParvaListView.xhtml</to-view-id>
+            <redirect include-view-params="true">
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ShlokaList</from-outcome>
+            <to-view-id>/browse/ShlokListView.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{adhyayList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{adhyayList.adhyayId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+    <!-- navigations from shloklist-->
+    <navigation-rule>
+        <from-view-id>/browse/ShlokListView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>AdhyayList</from-outcome>
+            <to-view-id>/browse/AdhyayListView.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{shlokList.parvaId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>FullShlokView</from-outcome>
+            <to-view-id>/browse/FullShlokView.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{shlokList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{shlokList.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{shlokList.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+    <!-- navigations from FullShlokView -->
+    <navigation-rule>
+        <from-view-id>/browse/FullShlokView.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ShlokList</from-outcome>
+            <to-view-id>/browse/ShlokListView.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{fullShlokView.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{fullShlokView.adhyayId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule> 
+    <!-- navigations from shlok line first char list -->
+    <navigation-rule>
+        <from-view-id>/browse/ShlokLineFirstChar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ShlokLineListByFirstChar</from-outcome>
+            <to-view-id>/browse/ShlokLineListByFirstChar.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>firstChar</name>
+                    <value>#{shlokLineFirstChar.firstChar}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- navigations from shlok line list by first char  -->
+    <navigation-rule>
+        <from-view-id>/browse/ShlokLineListByFirstChar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ShlokLineFirstChar</from-outcome>
+            <to-view-id>/browse/ShlokLineFirstChar.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>firstChar</name>
+                    <value>#{shlokLineFirstChar.firstChar}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>FullShlokView</from-outcome>
+            <to-view-id>/browse/FullShlokView.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{shlokLineListByFirstChar.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{shlokLineListByFirstChar.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{shlokLineListByFirstChar.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>    
+    
+    <!-- navigations from word first char list -->
+    <navigation-rule>
+        <from-view-id>/browse/WordFirstChar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>WordListByFirstChar</from-outcome>
+            <to-view-id>/browse/WordListByFirstChar.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>firstChar</name>
+                    <value>#{wordFirstChar.firstChar}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+
+    <!-- navigations from word list by first char -->
+    <navigation-rule>
+        <from-view-id>/browse/WordListByFirstChar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>FullShlokView</from-outcome>
+            <to-view-id>/browse/FullShlokView.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{wordListByFirstChar.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{wordListByFirstChar.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{wordListByFirstChar.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>    
+    
+    <!-- navigations from shlok word list by first char  -->
+    <navigation-rule>
+        <from-view-id>/browse/WordListByFirstChar.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ShlokLineFirstChar</from-outcome>
+            <to-view-id>/browse/ShlokLineFirstChar.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>firstChar</name>
+                    <value>#{shlokLineFirstChar.firstChar}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>FullShlokView</from-outcome>
+            <to-view-id>/browse/FullShlokView.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{shlokLineListByFirstChar.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{shlokLineListByFirstChar.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{shlokLineListByFirstChar.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>       
+    <!--    edit pages rules-->
+    <!--    navigation cases for login-->
+    <navigation-rule>
+        <from-view-id>/Login.xhtml</from-view-id>
+        <navigation-case>
+            <from-action>#{loginController.moveToDefaultHost}</from-action>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-action>#{loginController.moveToDefaultHost}</from-action>
+            <from-outcome>access</from-outcome>
+            <to-view-id>/access.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>Landing</from-outcome>
+            <to-view-id>/edit/maintext/navigate/ParvaList.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    
+    <!--    Navigation cases for Parva List  navigate to different pages -->
+    <navigation-rule>
+        <from-view-id>/edit/maintext/navigate/ParvaList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>AdhyayList</from-outcome>
+            <to-view-id>/edit/maintext/navigate/AdhyayList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{parvaListNavigate.parvaId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+
+    <!--    Navigation cases for Adhyay List  edit to different pages -->
+    <navigation-rule>
+        <from-view-id>/edit/maintext/navigate/AdhyayList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ShlokaList</from-outcome>
+            <to-view-id>/edit/maintext/shlok/ShlokList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{adhyayList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{adhyayList.adhyayId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>ParvaList</from-outcome>
+            <to-view-id>/edit/maintext/navigate/ParvaList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{adhyayList.parvaId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!--    Navigation cases for Shloka List  edit to different pages -->
+    <navigation-rule>
+        <from-view-id>/edit/maintext/shlok/ShlokList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>AddEditAnubad</from-outcome>
+            <to-view-id>/edit/maintext/anubad/AddEditAnubad.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{shlokList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{shlokList.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{shlokList.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AdhyayList</from-outcome>
+            <to-view-id>/edit/maintext/navigate/AdhyayList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{shlokList.parvaId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>EditShlok</from-outcome>
+            <to-view-id>/edit/maintext/shlok/EditShlok.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{shlokList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{shlokList.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{shlokList.shlokaNum}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaLine</name>
+                    <value>#{shlokList.shlokaLine}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AddShlok</from-outcome>
+            <to-view-id>/edit/maintext/shlok/AddShlok.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{shlokList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{shlokList.adhyayId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>ShlokList</from-outcome>
+            <to-view-id>/edit/maintext/shlok/ShlokList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{shlokList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{shlokList.adhyayId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!--    Navigation cases for Shloka edit  edit to different pages -->
+    <navigation-rule>
+        <from-view-id>/edit/maintext/shlok/EditShlok.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ShlokList</from-outcome>
+            <to-view-id>/edit/maintext/shlok/ShlokList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{editShlok.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{editShlok.adhyayId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>EditShlok</from-outcome>
+            <to-view-id>/edit/maintext/shlok/EditShlok.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{editShlok.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{editShlok.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{editShlok.shlokaNum}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaLine</name>
+                    <value>#{editShlok.shlokaLine}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>        
+    </navigation-rule>
+    
+    <!--    Navigation cases for Shloka add  edit to different pages -->
+    <navigation-rule>
+        <from-view-id>/edit/maintext/shlok/AddShlok.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ShlokList</from-outcome>
+            <to-view-id>/edit/maintext/shlok/ShlokList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{addShlok.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{addShlok.adhyayId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AddShlok</from-outcome>
+            <to-view-id>/edit/maintext/shlok/AddShlok.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{addShlok.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{addShlok.adhyayId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>        
+    </navigation-rule>
+    
+    <!--    Navigation cases for Anubad add  edit to different pages -->
+    <navigation-rule>
+        <from-view-id>/edit/maintext/anubad/AddEditAnubad.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>ShlokList</from-outcome>
+            <to-view-id>/edit/maintext/shlok/ShlokList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{addEditAnubad.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{addEditAnubad.adhyayId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        
+        <navigation-case>
+            <from-outcome>AddEditAnubad</from-outcome>
+            <to-view-id>/edit/maintext/anubad/AddEditAnubad.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{addEditAnubad.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{addEditAnubad.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{addEditAnubad.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>TikaList</from-outcome>
+            <to-view-id>/edit/maintext/Tika/TikaList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{addEditAnubad.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{addEditAnubad.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{addEditAnubad.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <!--    Navigation cases for Tika list  edit to different pages -->
+    <navigation-rule>
+        <from-view-id>/edit/maintext/Tika/TikaList.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>AddEditAnubad</from-outcome>
+            <to-view-id>/edit/maintext/anubad/AddEditAnubad.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{tikaList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{tikaList.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{tikaList.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AddTika</from-outcome>
+            <to-view-id>/edit/maintext/Tika/AddTika.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{tikaList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{tikaList.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{tikaList.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>EditTika</from-outcome>
+            <to-view-id>/edit/maintext/Tika/EditTika.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{tikaList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{tikaList.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{tikaList.shlokaNum}</value>
+                </view-param>
+                <view-param>
+                    <name>tikaId</name>
+                    <value>#{tikaList.tikaId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>        
+        <navigation-case>
+            <from-outcome>TikaList</from-outcome>
+            <to-view-id>/edit/maintext/Tika/TikaList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{tikaList.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{tikaList.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{tikaList.shlokaNum}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaLine</name>
+                    <value>#{tikaList.shlokaLine}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+    </navigation-rule>
+ 
+    <!--    Navigation cases for Tika add edit to different pages -->
+    <navigation-rule>
+        <from-view-id>/edit/maintext/Tika/AddTika.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>TikaList</from-outcome>
+            <to-view-id>/edit/maintext/Tika/TikaList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{addTika.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{addTika.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{addTika.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>AddTika</from-outcome>
+            <to-view-id>/edit/maintext/Tika/AddTika.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{addTika.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{addTika.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{addTika.shlokaNum}</value>
+                </view-param>
+
+            </redirect>
+        </navigation-case>             
+    </navigation-rule>
+    
+    <!--    Navigation cases for Tika edit edit to different pages -->
+    <navigation-rule>
+        <from-view-id>/edit/maintext/Tika/EditTika.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>TikaList</from-outcome>
+            <to-view-id>/edit/maintext/Tika/TikaList.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{editTika.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{editTika.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{editTika.shlokaNum}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>EditTika</from-outcome>
+            <to-view-id>/edit/maintext/Tika/EditTika.xhtml</to-view-id>
+            <redirect include-view-params="true">
+                <view-param>
+                    <name>parvaId</name>
+                    <value>#{editTika.parvaId}</value>
+                </view-param>
+                <view-param>
+                    <name>adhyayId</name>
+                    <value>#{editTika.adhyayId}</value>
+                </view-param>
+                <view-param>
+                    <name>shlokaNum</name>
+                    <value>#{editTika.shlokaNum}</value>
+                </view-param>
+                <view-param>
+                    <name>tikaId</name>
+                    <value>#{editTika.tikaId}</value>
+                </view-param>
+            </redirect>
+        </navigation-case>             
+    </navigation-rule>
+</faces-config>

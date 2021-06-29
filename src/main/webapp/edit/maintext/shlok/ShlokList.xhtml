@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="./../../../WEB-INF/template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="parvaId" value="#{shlokList.parvaId}"></f:viewParam>
+            <f:viewParam name="adhyayId" value="#{shlokList.adhyayId}"></f:viewParam>
+            <f:viewAction action="#{shlokList.loadAllShlokaList()}"/>
+        </f:metadata>
+
+        <h:form id="form"> 
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:button value="Back" outcome="AdhyayList" title="পূর্ববর্তী পাতা" style="margin-right: .5rem" styleClass="ui-button-success"/>
+                    <p:commandButton value="Add Shloka" action="#{shlokList.addShlokaBtn()}" styleClass="ui-button-success"></p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+            <p:dataTable var="shloka" value="#{shlokList.shlokaDTOList}" reflow="true" >
+                <p:column  headerText="উবাচঃ">
+                    <h:outputText value="#{shloka.getUbachaName()}" />
+                    <h:outputText value=" " />
+                    <h:outputText value="#{shloka.getUbachaBachan()}" />
+                </p:column>
+
+                <p:column  headerText="শ্লোক"> 
+                    <h:outputText value="#{shloka.getShlokaText()}" />
+                </p:column>
+
+                <p:column  headerText="সংখ্যা">
+                    <h:outputText value="#{shloka.getShlokaNum()}" />
+                    <h:outputText value="," />
+                    <h:outputText value="#{shloka.getShlokaLine()}" />
+                </p:column>
+
+                <p:column headerText="Edit">
+
+                    <p:commandButton icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-success"  action="#{shlokList.editShlok()}">
+                        <f:setPropertyActionListener value="#{shloka}" target="#{shlokList.selectedShloka}" />
+                    </p:commandButton>
+                    <p:commandButton icon="pi pi-trash" styleClass="ui-button-warning rounded-button" action="#{shlokList.deleteShloka()}">
+                        <f:setPropertyActionListener value="#{shloka}" target="#{shlokList.selectedShloka}" />
+                    </p:commandButton> 
+                    <p:commandButton  icon="fa fa-language" styleClass="ui-button-warning rounded-button" action="#{shlokList.anubad()}" title="অনুবাদ এবং টীকা সমূহ">
+                        <f:setPropertyActionListener value="#{shloka}" target="#{shlokList.selectedShloka}" />
+                    </p:commandButton>
+                </p:column>
+
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

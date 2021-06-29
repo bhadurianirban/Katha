@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                template="/WEB-INF/browse-template.xhtml"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns="http://www.w3.org/1999/xhtml">
+
+    <ui:define name="content">
+        <f:metadata>
+            <f:viewParam name="parvaId" value="#{fullShlokView.parvaId}"></f:viewParam>
+            <f:viewParam name="adhyayId" value="#{fullShlokView.adhyayId}"></f:viewParam>
+            <f:viewParam name="shlokaNum" value="#{fullShlokView.shlokaNum}"></f:viewParam>
+            <f:viewAction action="#{fullShlokView.loadShlokDetails()}"/>
+        </f:metadata>
+
+        <div class="ui-g">
+            <div class="ui-g-12 ui-md-12 ui-lg-12">
+                <h:form id="form">
+                    <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                            <p:button value="#{fullShlokView.parvaName}  পর্ব" outcome="ShlokList" styleClass="back-button" />
+                            <p:button value="#{fullShlokView.adhyayId} অধ্যায়" outcome="ShlokList" styleClass="back-button" />
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-6 ui-lg-3">
+                            <div class="anubadBox">
+                                <h:outputText value="#{fullShlokView.ubachaName}" />
+                                <h:outputText value="  " />
+                                <h:outputText value="#{fullShlokView.ubachaBachan}" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <p:dataTable var="shloka" value="#{fullShlokView.shlokDTOList}">
+                                <p:column width="15%" headerText="সংখ্যা">
+                                    <h:outputText value="#{shloka.getShlokaNum()}" />
+                                    <h:outputText value="," />
+                                    <h:outputText value="#{shloka.getShlokaLine()}" />
+                                </p:column>
+                                <p:column headerText="শ্লোক">
+                                    <h:outputText value="#{shloka.getShlokaText()}" />
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-12">
+                            <div class="anubadBox">
+                                <h:outputText value="#{fullShlokView.shlokaAnubad}" style="width: 100%;" escape="false"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-g">
+                        <div class="ui-g-12 ui-md-12 ui-lg-6">
+                            <p:dataTable var="tika" value="#{fullShlokView.tikaDTOList}">
+                                <p:column width="15%" headerText="সংখ্যা">
+                                    <h:outputText value="#{tika.refTextId}" />
+                                </p:column>
+                                <p:column headerText="Tika">
+                                    <h:outputText value="#{tika.refText}" />
+                                </p:column>
+                            </p:dataTable>
+                        </div>
+                    </div>                    
+
+                </h:form>
+            </div>
+
+        </div>
+    </ui:define>
+
+</ui:composition>
